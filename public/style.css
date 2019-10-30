@@ -9,4 +9,28 @@ body {
     color: red;
     padding: 1em;
   }
+
+/*This is the CSS for my Navigation Bar*/
+  .navigation-bar{
+    background-color: orange;
+    overflow: hidden;
+  }
+  .navigation-bar a{
+    float: left;
+    color: blue;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  }
+  .navigation-bar a:hover{
+    background-color: greenyellow;
+    color: white;
+  }
+  .navigation-bar a.active{
+    background-color: red;
+    color: black;
+  }
+
   

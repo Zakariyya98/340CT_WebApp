@@ -10,15 +10,18 @@
 		<link href="style.css" type="text/css" rel="stylesheet" />
 	</head>
 	<body>
-		<h1>Log In</h1>
+		<h1>Authorised Computer Reseller</h1>
+		<h2>Welcome Back</h2>
 		{{#if msg}}
  			<p class="msg">{{msg}}</p>
 		{{/if}}
 		<form action="/login" method="post">
-			<p>Username:<br /><input type="text" name="user" placeholder="your username" value="{{user}}" autofocus></p>
-			<p>Password:<br /><input type="password" name="pass" placeholder="your password" value=""></p>
+			<p>Username:<br /><input type="text" name="user" placeholder="Enter Username" value="{{user}}" autofocus></p>
+			<p>Password:<br /><input type="password" name="pass" placeholder="Enter Password" value=""></p>
 			<p><input type="submit" value="Log in"></p>
 		</form>
-		<p><a href="/register">register</a></p>
+		<h3>Dont have an account? <a href="/register">Sign Up</a></h3>
+		<h3>Want to have a look around? <a href="/home">Take a look</a></h3>
+		
 	</body>
 </html>

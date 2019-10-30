@@ -94,7 +94,7 @@ router.post('/login', async ctx => {
 		const user = await new User(dbName)
 		await user.login(body.user, body.pass)
 		ctx.session.authorised = true
-		return ctx.redirect('/?msg=you are now logged in...')
+		return ctx.redirect('/home')
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
 	}
@@ -104,6 +104,8 @@ router.get('/logout', async ctx => {
 	ctx.session.authorised = null
 	ctx.redirect('/?msg=you are now logged out')
 })
+
+router.get('/home', async ctx => await ctx.render('home'))
 
 app.use(router.routes())
 module.exports = app.listen(port, async() => console.log(`listening on port ${port}`))
