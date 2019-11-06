@@ -16,9 +16,7 @@ const session = require('koa-session')
 
 /* IMPORT CUSTOM MODULES */
 const User = require('./modules/user')
-
-
-
+const Systems = require('./modules/computers')
 const app = new Koa()
 const router = new Router()
 
@@ -32,6 +30,7 @@ app.use(views(`${__dirname}/views`, { extension: 'handlebars' }, {map: { handleb
 const defaultPort = 8080
 const port = process.env.PORT || defaultPort 
 const dbName = 'website.db'	
+const dbProducts = 'products.db'
 
 /**
  * The secure home page.
@@ -105,7 +104,23 @@ router.get('/logout', async ctx => {
 	ctx.redirect('/?msg=you are now logged out')
 })
 
-router.get('/home', async ctx => await ctx.render('home'))
+//router.get('/home', async ctx => await ctx.render('home'))
+
+router.get('/home', async ctx => {
+	try {
+		console.log('/home')
+		await ctx.render('home')
+		const sql = 'ddd'
+		const products = await new Systems(dbProducts)
+		const data = await products.search(sql)
+		//await products.close()
+		console.log(data.name)
+		await ctx.render('home')
+	} catch(err) {
+		ctx.body = err.message
+	}
+})
+
 
 app.use(router.routes())
 module.exports = app.listen(port, async() => console.log(`listening on port ${port}`))
