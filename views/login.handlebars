@@ -1,5 +1,4 @@
-
-<!doctype html>
+<!DOCTYPE html>
 
 <html lang="en">
 	<head>
@@ -8,20 +7,74 @@
 		<meta name="description" content="form to add new books">
 		<meta name="author" content="Mark Tyers">
 		<link href="style.css" type="text/css" rel="stylesheet" />
+		<link href="loginstyle.css" type="text/css" rel="stylesheet"/>
 	</head>
 	<body>
-		<h1>Authorised Computer Reseller</h1>
-		<h2>Welcome Back</h2>
-		{{#if msg}}
- 			<p class="msg">{{msg}}</p>
-		{{/if}}
-		<form action="/login" method="post">
-			<p>Username:<br /><input type="text" name="user" placeholder="Enter Username" value="{{user}}" autofocus></p>
-			<p>Password:<br /><input type="password" name="pass" placeholder="Enter Password" value=""></p>
-			<p><input type="submit" value="Log in"></p>
-		</form>
-		<h3>Dont have an account? <a href="/register">Sign Up</a></h3>
-		<h3>Want to have a look around? <a href="/home">Take a look</a></h3>
+
+		 {{! - The Updated Login Page}}
+		<form action= "/login" method="post">
+		<div class="login-background">
+			<div class="login-design">
+				<div class ="login-design2">
+					<form class ="login-validate validate-form">
+						<span class="login-title">
+							Authorised Computer Reseller
+						</span>
+
+				
+						<div class="userpass-input validate-input" data-validate = "Username is required: JohnDoe">
+						<input class="userpass-enter" type="text" name="user" placeholder="Username" value ="{{user}}" autofocus>
+						<span class="userpass-design"></span>
+						<span class="userpass-design2">
+						</span>
+					</div>
+					
+
+					<div class="userpass-input validate-input" data-validate = "Password is required">
+						<input class="userpass-enter" type="password" name="pass" placeholder="Password" value="">
+						<span class="userpass-design"></span>
+						<span class="userpass-design2">
+						</span>
+					</div>
+
+			
+					<div class="login-button-design">
+						<button class="login-button" type="submit" value="Login">
+							Login
+						</button>
+					</div>
+
+			</form>
+					</form>
+
+						<div class="signup-button-design">
+						<p>Dont have an account?</p>
+						<button class="signup-button">
+							Sign up
+						</button>
+						</form>
+					</div>
+
+					<div class="browse-site-design">
+						<p>Look around as a guest</p>
+						<button class="browse-site" value ="/home">
+							Take a look?
+						</button>
+					</div>
+
+				</div>
+
+			</div>
+		
+		</div>
+
+	{{! - Add back the double curly
+		#if msg
+ 			<p class="msg">msg</p>
+		/if}}
+	
+		{{!<h3>Dont have an account? <a href="/register">Sign Up</a></h3>
+		<h3>Want to have a look around? <a href="/home">Take a look</a></h3>}}
 		
 	</body>
 </html>

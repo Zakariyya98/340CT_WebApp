@@ -17,7 +17,17 @@
 
         <h1>Computer Reseller</h1>
         <h2>The Systems below are the most popular systems right now. </h2>
-         
+
+        <header>
+            <h1>{{title}}</h1>
+        </header>
+            <p>Computers right now</p>
+            <ul>{{#each name}}
+            <li>{{this.name}}
+                {{this.desc}}
+            </li>
+            {{/each}}
+            </ul>
     </body>
 
 </html>

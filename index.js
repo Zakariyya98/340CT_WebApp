@@ -12,6 +12,7 @@ const staticDir = require('koa-static')
 const bodyParser = require('koa-bodyparser')
 const koaBody = require('koa-body')({multipart: true, uploadDir: '.'})
 const session = require('koa-session')
+const sqlite = require('sqlite-async')
 //const jimp = require('jimp')
 
 /* IMPORT CUSTOM MODULES */
@@ -103,23 +104,32 @@ router.get('/logout', async ctx => {
 	ctx.session.authorised = null
 	ctx.redirect('/?msg=you are now logged out')
 })
-
-//router.get('/home', async ctx => await ctx.render('home'))
-
+//delete the eslint disable once fixed later on
+// eslint-disable-next-line max-lines-per-function
 router.get('/home', async ctx => {
 	try {
-		console.log('/home')
-		await ctx.render('home')
-		const sql = 'ddd'
-		const products = await new Systems(dbProducts)
-		const data = await products.search(sql)
+		console.log('/')
+		//await ctx.render('home')
+		//Code below is for searching a product// It works
+		//const sql = 'Dell'
+		//const products = await new Systems(dbProducts)
+		//const data = await products.search(sql)
 		//await products.close()
-		console.log(data.name)
-		await ctx.render('home')
+		//console.log(data.name)
+		//"Leave this code for now"
+		const sql = 'SELECT id, name, desc FROM products;'
+		const db = await sqlite.open(dbProducts)
+		const data = await db.all(sql)
+		await db.close()
+		console.log(data)
+		await ctx.render('home', {title: 'Popular right now', name: data, desc: data})
 	} catch(err) {
 		ctx.body = err.message
 	}
 })
+
+router.get('/productadd', async ctx => await ctx.render('productadd'))
+
 
 
 app.use(router.routes())

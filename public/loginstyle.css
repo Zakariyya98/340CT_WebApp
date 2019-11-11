@@ -1,0 +1,247 @@
+/*CSS File for my login page*/
+
+/*Login Page Background and Design*/
+
+.login-background{
+    width: 100%;
+    margin: 0, auto;
+  }
+
+  .login-design{
+    width: 100%;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: #434343;
+    background: -webkit-linear-gradient(bottom, #B7F8DB, #50A7C2);
+    background: -o-linear-gradient(bottom, #B7F8DB, #50A7C2);
+    background: -moz-linear-gradient(bottom, #B7F8DB, #50A7C2);
+    background: linear-gradient(bottom, #B7F8DB, #50A7C2);
+    position: relative;
+    z-index: 1;
+  }
+
+  .login-design2 {
+    width: 450px;
+    background: #fff;
+    border-radius: 3px;
+    overflow: hidden;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 77px;
+    padding-bottom: 30px;
+  }
+
+
+  .login-validate {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .login-title{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 30px;
+    color: #000000;
+    line-height: 1.2;
+    text-transform: uppercase;
+    text-align: center;
+  
+    width: 100%;
+    display: block;
+    padding-bottom: 55px;
+  }
+
+  /*Username and Password TextFields*/
+
+  .userpass-input {
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    margin-bottom: 16px;
+  }
+
+  .userpass-enter {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 18px;
+    line-height: 1.2;
+    color: #686868;
+  
+    display: block;
+    width: 78%;
+    background: #e6e6e6;
+    height: 62px;
+    border-radius: 3px;
+    padding: 0 30px 0 65px;
+  }
+
+  .userpass-design {
+    display: block;
+    position: absolute;
+    border-radius: 3px;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 0px 0px 0px;
+    color: #000000;
+  }
+
+  .userpass-enter:focus + .userpass-design {
+    -webkit-animation: anim-shadow 0.5s ease-in forwards;
+    animation: anim-shadow 0.5s ease-in forwards;
+  }
+
+  @-webkit-keyframes anim-shadow {
+    to {
+      box-shadow: 0px 0px 60px 20px;
+      opacity: 0;
+    }
+  }
+  
+  @keyframes anim-shadow {
+    to {
+      box-shadow: 0px 0px 60px 20px;
+      opacity: 0;
+    }
+  }
+
+  .userpass-design2 {
+    font-size: 24px;
+    color: #999999;
+  
+    display: flex;
+    align-items: center;
+    position: absolute;
+    border-radius: 25px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding-left: 23px;
+    padding-bottom: 5px;
+    pointer-events: none;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+  
+  }
+
+  .userpass-.userpass-design + .userpass-design + .userpass-design2 {
+    color: #000000;
+    padding-left: 18px;
+  }
+
+  /*Login Button*/
+
+  .login-button-design {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 25px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+  }
+  
+  .login-button {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #000000;
+    text-transform: uppercase;
+  
+    width: 100%;
+    height: 62px;
+    border-radius: 3px;
+    background: #B7F8DB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 25px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+  
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+  }
+  
+  .login-button:hover {
+    background: #50A7C2;
+  }
+
+  /*Signup Button*/
+
+  .signup-button {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #000000;
+    text-transform: uppercase;
+  
+    width: 100%;
+    height: 62px;
+    border-radius: 3px;
+    background: #B7F8DB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 25px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+  
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+  }
+
+  /*Browse Button*/
+
+  .browse-site {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #000000;
+    text-transform: uppercase;
+  
+    width: 100%;
+    height: 62px;
+    border-radius: 3px;
+    background: #B7F8DB;
+    justify-content: center;
+    align-items: center;
+    padding: 0 25px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+  
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+  }
