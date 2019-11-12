@@ -86,6 +86,41 @@ describe('Adding to a Database',() => {
 		done()
 	})
 
+	test('error if no name', async done => {
+		expect.assertions(1)
+		const Product = await new Products()
+		await expect(Product.addtodb('', '£300', 'null', 'This is a laptop'))
+			.rejects.toEqual(Error('Missing Product Name'))
+		done()
+
+	})
+
+	test('error if no price', async done => {
+		expect.assertions(1)
+		const Product = await new Products()
+		await expect(Product.addtodb('Dell XPS', '', 'null', 'This is a Laptop'))
+			.rejects.toEqual(Error('Missing Product Price'))
+		done()
+
+	})
+	//Picture will need a different test which should return true when a picture is uploaded
+	//test('error if no picture', async done => {
+		//expect.assertions(1)
+		//const Product = await new Products()
+		//await expect(Product.addtodb('Dell XPS', '£300', '', 'This is a Laptop'))
+			//.rejects.toEqual(Error('Missing Product Picture'))
+		//done()
+
+	//})
+	
+	test('error if no description', async done => {
+		expect.assertions(1)
+		const Product = await new Products()
+		await expect(Product.addtodb('Dell XPS', '£300', 'null', ''))
+			.rejects.toEqual(Error('Missing Product Description'))
+		done()
+
+	})
 
 
 })

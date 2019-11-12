@@ -36,14 +36,6 @@ module.exports = class Systems {
 	}
 
 
-
-
-
-
-
-
-
-
 //This is a search feature for the database.
 	//async search(userinp) {
 		//try{
