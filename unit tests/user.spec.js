@@ -2,6 +2,7 @@
 'use strict'
 
 const Accounts = require('../modules/user.js')
+const Products = require('../modules/computers.js')
 
 describe('register()', () => {
 
@@ -72,5 +73,19 @@ describe('login()', () => {
 			.rejects.toEqual( Error('invalid password for account "doej"') )
 		done()
 	})
+
+})
+
+describe('Adding to a Database',() => {
+
+	test('add to database', async done => {
+		expect.assertions(1)
+		const Product = await new Products()
+		const addproduct = await Product.addtodb('Dell XPS', '£300', 'null', 'This is a laptop')
+		expect(addproduct).toBe(true)
+		done()
+	})
+
+
 
 })

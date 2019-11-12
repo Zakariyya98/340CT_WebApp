@@ -14,7 +14,36 @@ module.exports = class Systems {
 			return this
 		})()
 
+
 	}
+	// eslint-disable-next-line complexity
+	async addtodb(name, price, picture, desc) {
+		try{
+			if(name.length === 0) throw new Error('Missing Product Name')
+			if(price.length === 0) throw new Error('Missing Product Price')
+			if(picture.length === 0) throw new Error('Missing Product Image')
+			if(desc.length === 0) throw new Error('Missing Product Description')
+			let sql = `SELECT COUNT(id) as records FROM products WHERE name="${name}"`
+			//const item = await this.db.get(sql)
+			sql = `INSERT INTO products(name, price, picture, desc) VALUES("${name}", "${price}","${picture}","${desc}")`
+			await this.db.run(sql)
+			return true
+
+		}catch (err) {
+			throw err
+		}
+
+	}
+
+
+
+
+
+
+
+
+
+
 //This is a search feature for the database.
 	//async search(userinp) {
 		//try{
