@@ -130,6 +130,20 @@ router.get('/home', async ctx => {
 
 router.get('/productadd', async ctx => await ctx.render('productadd'))
 
+router.post('/productadd', async ctx => {
+	try {
+		// extract the data from the request
+		const body = ctx.request.body
+		console.log(body)
+		// call the functions in the module
+		const system = await new Systems(dbProducts)
+		await system.addtodb(body.name, body.price, body.picture, body.desc)
+		// redirect to the home page
+		ctx.redirect('/home')
+	} catch(err) {
+		await ctx.render('error', {message: err.message})
+	}
+})
 
 
 app.use(router.routes())

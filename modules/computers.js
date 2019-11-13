@@ -2,7 +2,6 @@
 
 const sqlite = require('sqlite-async')
 
-
 module.exports = class Systems {
 // This will create the new products.db Database and the Table within the database.
 	constructor(dbProducts = ':memory:') {
@@ -24,7 +23,6 @@ module.exports = class Systems {
 			if(picture.length === 0) throw new Error('Missing Product Image')
 			if(desc.length === 0) throw new Error('Missing Product Description')
 			let sql = `SELECT COUNT(id) as records FROM products WHERE name="${name}"`
-			//const item = await this.db.get(sql)
 			sql = `INSERT INTO products(name, price, picture, desc) VALUES("${name}", "${price}","${picture}","${desc}")`
 			await this.db.run(sql)
 			return true
