@@ -1,6 +1,9 @@
+/* eslint-disable complexity */
 'use strict'
 
 const sqlite = require('sqlite-async')
+const mime = require('mime-types')
+const fs = require('fs-extra')
 
 module.exports = class Systems {
 // This will create the new products.db Database and the Table within the database.
@@ -16,6 +19,7 @@ module.exports = class Systems {
 
 	}
 	// eslint-disable-next-line complexity
+	// eslint-disable-next-line max-lines-per-function
 	async addtodb(name, price, picture, desc) {
 		try{
 			if(name.length === 0) throw new Error('Missing Product Name')
@@ -32,6 +36,14 @@ module.exports = class Systems {
 		}
 
 	}
+
+	//async updatedb(name, price, picture, desc){
+		//try{
+			//if
+		//}catch (err){
+			//throw err
+		//}
+	//}
 
 
 //This is a search feature for the database.
