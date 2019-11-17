@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+/* eslint-disable max-lines-per-function */
 //Routes File
 
 'use strict'
@@ -14,6 +14,8 @@ const koaBody = require('koa-body')({multipart: true, uploadDir: '.'})
 const session = require('koa-session')
 const sqlite = require('sqlite-async')
 //const jimp = require('jimp')
+const mime = require('mime-types')
+const fs = require('fs-extra')
 
 /* IMPORT CUSTOM MODULES */
 const User = require('./modules/user')
@@ -117,7 +119,7 @@ router.get('/home', async ctx => {
 		//await products.close()
 		//console.log(data.name)
 		//"Leave this code for now"
-		const sql = 'SELECT id, name, desc FROM products;'
+		const sql = 'SELECT id, name, desc, picture FROM products;'
 		const db = await sqlite.open(dbProducts)
 		const data = await db.all(sql)
 		await db.close()
@@ -130,6 +132,30 @@ router.get('/home', async ctx => {
 
 router.get('/productadd', async ctx => await ctx.render('productadd'))
 
+router.post('/productadd', koaBody, async ctx => {
+	try {
+		// extract the data from the request
+		const body = ctx.request.body
+		console.log(body)
+		// call the functions in the module
+		//Add Picture Code
+		const {path, type, name} = ctx.request.files.picture
+		const fileExtention = mime.extension(type)
+		console.log(`path: ${path}`)
+		console.log(`Filetype: ${type}`)
+		console.log(`Filename: ${name}`)
+		console.log(`fileExtention: ${fileExtention}`)
+		await fs.copy(path, `public/avatars/${name}`)
+		//add picture code ends
+		//Working Code
+		const system = await new Systems(dbProducts)
+		await system.addtodb(body.name, body.price, body.picture, body.desc)
+		// redirect to the home page
+		ctx.redirect('/home')
+	} catch(err) {
+		await ctx.render('error', {message: err.message})
+	}
+})
 
 
 app.use(router.routes())
