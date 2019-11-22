@@ -96,6 +96,7 @@ router.post('/login', async ctx => {
 		const user = await new User(dbName)
 		await user.login(body.user, body.pass)
 		ctx.session.authorised = true
+		//ctx.session.name = body.user
 		return ctx.redirect('/home')
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
@@ -119,12 +120,12 @@ router.get('/home', async ctx => {
 		//await products.close()
 		//console.log(data.name)
 		//"Leave this code for now"
-		const sql = 'SELECT id, name, desc, picture FROM products;'
+		const sql = 'SELECT id, name, desc, picture, price FROM products;'
 		const db = await sqlite.open(dbProducts)
 		const data = await db.all(sql)
 		await db.close()
 		console.log(data)
-		await ctx.render('home', {title: 'Popular right now', name: data, desc: data})
+		await ctx.render('home', {title: 'Popular right now', name: data, desc: data, price: data})
 	} catch(err) {
 		ctx.body = err.message
 	}
@@ -156,7 +157,7 @@ router.post('/productadd', koaBody, async ctx => {
 		await ctx.render('error', {message: err.message})
 	}
 })
-
+router.get('/cart', async ctx => await ctx.render('cart'))
 
 app.use(router.routes())
 module.exports = app.listen(port, async() => console.log(`listening on port ${port}`))
