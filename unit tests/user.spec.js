@@ -3,6 +3,7 @@
 
 const Accounts = require('../modules/user.js')
 const Products = require('../modules/computers.js')
+const Cart = require('../modules/shoppingcart.js')
 
 describe('register()', () => {
 
@@ -105,11 +106,11 @@ describe('Adding to a Database',() => {
 	})
 	//Picture will need a different test which should return true when a picture is uploaded
 	//test('error if no picture', async done => {
-		//expect.assertions(1)
-		//const Product = await new Products()
-		//await expect(Product.addtodb('Dell XPS', '£300', '', 'This is a Laptop'))
-			//.rejects.toEqual(Error('Missing Product Picture'))
-		//done()
+	//expect.assertions(1)
+	//const Product = await new Products()
+	//await expect(Product.addtodb('Dell XPS', '£300', '', 'This is a Laptop'))
+	//.rejects.toEqual(Error('Missing Product Picture'))
+	//done()
 
 	//})
 	
@@ -122,5 +123,17 @@ describe('Adding to a Database',() => {
 
 	})
 
+
+})
+
+describe('Adding to the shopping cart', () => {
+
+	test('Item added to database', async done => {
+		expect.assertions(1)
+		const cart = await new Cart()
+		await expect(cart.addtoCart('Dell XPS', '£300'))
+			.rejects.toEqual(Error('Item not added to cart'))
+		done()
+	})
 
 })

@@ -27,6 +27,7 @@ module.exports = class Systems {
 			if(picture.length === 0) throw new Error('Missing Product Image')
 			if(desc.length === 0) throw new Error('Missing Product Description')
 			let sql = `SELECT COUNT(id) as records FROM products WHERE name="${name}"`
+			// eslint-disable-next-line max-len
 			sql = `INSERT INTO products(name, price, picture, desc) VALUES("${name}", "${price}","${picture}","${desc}")`
 			await this.db.run(sql)
 			return true

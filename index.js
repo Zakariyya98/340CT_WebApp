@@ -20,6 +20,8 @@ const fs = require('fs-extra')
 /* IMPORT CUSTOM MODULES */
 const User = require('./modules/user')
 const Systems = require('./modules/computers')
+const Cart = require('./modules/shoppingcart')
+
 const app = new Koa()
 const router = new Router()
 
@@ -32,8 +34,10 @@ app.use(views(`${__dirname}/views`, { extension: 'handlebars' }, {map: { handleb
 
 const defaultPort = 8080
 const port = process.env.PORT || defaultPort 
+//Databases
 const dbName = 'website.db'	
 const dbProducts = 'products.db'
+const dbCart = 'shopcart.db'
 
 /**
  * The secure home page.
@@ -158,6 +162,18 @@ router.post('/productadd', koaBody, async ctx => {
 	}
 })
 router.get('/cart', async ctx => await ctx.render('cart'))
+
+router.post('/cart,', koaBody, async ctx => {
+	try{
+		const body = ctx.request.body
+		console.log(body)
+		const cart = await new Cart(dbCart)
+		await cart.addtoCart(body.name, body.price)
+	}catch (err) {
+		await ctx.render('error', {message: err.message})
+	}
+})
+
 
 app.use(router.routes())
 module.exports = app.listen(port, async() => console.log(`listening on port ${port}`))
