@@ -10,7 +10,7 @@ describe('register()', () => {
 	test('register a valid account', async done => {
 		expect.assertions(1)
 		const account = await new Accounts()
-		const register = await account.register('doej', 'password')
+		const register = await account.register('doej', 'password', '1 Gosford Street' , 'Coventry', 'England', 'CV1 1SA')
 		expect(register).toBe(true)
 		done()
 	})
@@ -18,7 +18,7 @@ describe('register()', () => {
 	test('register a duplicate username', async done => {
 		expect.assertions(1)
 		const account = await new Accounts()
-		await account.register('doej', 'password')
+		await account.register('doej', 'password', '1 Gosford Street' , 'Coventry', 'England', 'CV1 1SA')
 		await expect( account.register('doej', 'password') )
 			.rejects.toEqual( Error('username "doej" already in use') )
 		done()
@@ -27,16 +27,16 @@ describe('register()', () => {
 	test('error if blank username', async done => {
 		expect.assertions(1)
 		const account = await new Accounts()
-		await expect( account.register('', 'password') )
-			.rejects.toEqual( Error('missing username') )
+		await expect( account.register('', 'password', '1 Gosford Street' , 'Coventry', 'England', 'CV1 1SA') )
+			.rejects.toEqual( Error('Missing Username') )
 		done()
 	})
 
 	test('error if blank password', async done => {
 		expect.assertions(1)
 		const account = await new Accounts()
-		await expect( account.register('doej', '') )
-			.rejects.toEqual( Error('missing password') )
+		await expect( account.register('doej', '', '1 Gosford Street' , 'Coventry', 'England', 'CV1 1SA') )
+			.rejects.toEqual( Error('Missing Password') )
 		done()
 	})
 
@@ -51,7 +51,7 @@ describe('login()', () => {
 	test('log in with valid credentials', async done => {
 		expect.assertions(1)
 		const account = await new Accounts()
-		await account.register('doej', 'password')
+		await account.register('doej', 'password','1 Gosford Street' , 'Coventry', 'England', 'CV1 1SA')
 		const valid = await account.login('doej', 'password')
 		expect(valid).toBe(true)
 		done()
@@ -60,8 +60,8 @@ describe('login()', () => {
 	test('invalid username', async done => {
 		expect.assertions(1)
 		const account = await new Accounts()
-		await account.register('doej', 'password')
-		await expect( account.login('roej', 'password') )
+		await account.register('doej', 'password',' 1 Gosford Street' , 'Coventry', 'England', 'CV1 1SA')
+		await expect( account.login('roej', 'password','1 Gosford Street' , 'Coventry', 'England', 'CV1 1SA') )
 			.rejects.toEqual( Error('username "roej" not found') )
 		done()
 	})
@@ -69,7 +69,7 @@ describe('login()', () => {
 	test('invalid password', async done => {
 		expect.assertions(1)
 		const account = await new Accounts()
-		await account.register('doej', 'password')
+		await account.register('doej', 'password', '1 Gosford Street' , 'Coventry', 'England', 'CV1 1SA')
 		await expect( account.login('doej', 'bad') )
 			.rejects.toEqual( Error('invalid password for account "doej"') )
 		done()
@@ -133,6 +133,43 @@ describe('Adding to the shopping cart', () => {
 		const cart = await new Cart()
 		await expect(cart.addtoCart('Dell XPS,', '£300'))
 			.rejects.toEqual(Error('Item not added to cart'))
+		done()
+	})
+
+})
+
+describe('Supplying Delivery Address', () => {
+
+	test('Address Line 1 not supplied', async done => {
+		expect.assertions(1)
+		const account = await new Accounts()
+		await expect( account.register('Zak', 'admin', '' , 'Coventry', 'England', 'CV1 1SA'))
+			.rejects.toEqual( Error('Missing Address Line 1'))
+		done()
+	})
+	
+
+	test('City not supplied', async done => {
+		expect.assertions(1)
+		const account = await new Accounts()
+		await expect( account.register('Zak', 'admin', '1 Gosford Street' , '', 'England', 'CV1 1SA') )
+			.rejects.toEqual( Error('Missing City'))
+		done()
+	})
+
+	test('Country not Supplied', async done => {
+		expect.assertions(1)
+		const account = await new Accounts()
+		await expect( account.register('Zak', 'admin', '1 Gosford Street' , 'Coventry', '', 'CV1 1SA') )
+			.rejects.toEqual( Error('Missing Country'))
+		done()
+	})
+
+	test('Post Code not Supplied', async done => {
+		expect.assertions(1)
+		const account = await new Accounts()
+		await expect( account.register('Zak', 'admin', '1 Gosford Street' , 'Coventry', 'England', '') )
+			.rejects.toEqual( Error('Missing Post Code'))
 		done()
 	})
 
