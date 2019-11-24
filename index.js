@@ -20,6 +20,8 @@ const fs = require('fs-extra')
 /* IMPORT CUSTOM MODULES */
 const User = require('./modules/user')
 const Systems = require('./modules/computers')
+const Cart = require('./modules/shoppingcart')
+
 const app = new Koa()
 const router = new Router()
 
@@ -32,8 +34,10 @@ app.use(views(`${__dirname}/views`, { extension: 'handlebars' }, {map: { handleb
 
 const defaultPort = 8080
 const port = process.env.PORT || defaultPort 
-const dbName = 'website.db'	
+//Databases
+const dbName = 'website.db'
 const dbProducts = 'products.db'
+const dbCart = 'cart.db'
 
 /**
  * The secure home page.
@@ -96,6 +100,7 @@ router.post('/login', async ctx => {
 		const user = await new User(dbName)
 		await user.login(body.user, body.pass)
 		ctx.session.authorised = true
+		//ctx.session.name = body.user
 		return ctx.redirect('/home')
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
@@ -119,12 +124,12 @@ router.get('/home', async ctx => {
 		//await products.close()
 		//console.log(data.name)
 		//"Leave this code for now"
-		const sql = 'SELECT id, name, desc, picture FROM products;'
+		const sql = 'SELECT id, name, desc, picture, price FROM products;'
 		const db = await sqlite.open(dbProducts)
 		const data = await db.all(sql)
 		await db.close()
 		console.log(data)
-		await ctx.render('home', {title: 'Popular right now', name: data, desc: data})
+		await ctx.render('home', {title: 'Popular right now', name: data, desc: data, price: data})
 	} catch(err) {
 		ctx.body = err.message
 	}
@@ -153,6 +158,26 @@ router.post('/productadd', koaBody, async ctx => {
 		// redirect to the home page
 		ctx.redirect('/home')
 	} catch(err) {
+		await ctx.render('error', {message: err.message})
+	}
+})
+router.get('/cart', async ctx => await ctx.render('cart'))
+
+router.post('/cart,' , koaBody, async ctx => {
+	try{
+		const body = ctx.request.body
+		console.log(body)
+		const cart = await new Cart(dbCart)
+		await cart.addtoCart(body.name, body.price)
+		ctx.redirect('/cart')
+		//const sql = 'SELECT name, price FROM cart;'
+		//const db = await sqlite.open(dbCart)
+		//const data = await db.all(sql)
+		//await db.close()
+		//console.log(data)
+		//await ctx.render('cart', {title: 'Items in cart', name: data, price: data})
+
+	}catch (err) {
 		await ctx.render('error', {message: err.message})
 	}
 })
