@@ -131,7 +131,7 @@ describe('Adding to the shopping cart', () => {
 	test('Item added to database', async done => {
 		expect.assertions(1)
 		const cart = await new Cart()
-		await expect(cart.addtoCart('Dell XPS', '£300'))
+		await expect(cart.addtoCart('Dell XPS,', '£300'))
 			.rejects.toEqual(Error('Item not added to cart'))
 		done()
 	})

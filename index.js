@@ -35,9 +35,9 @@ app.use(views(`${__dirname}/views`, { extension: 'handlebars' }, {map: { handleb
 const defaultPort = 8080
 const port = process.env.PORT || defaultPort 
 //Databases
-const dbName = 'website.db'	
+const dbName = 'website.db'
 const dbProducts = 'products.db'
-const dbCart = 'shopcart.db'
+const dbCart = 'cart.db'
 
 /**
  * The secure home page.
@@ -163,12 +163,20 @@ router.post('/productadd', koaBody, async ctx => {
 })
 router.get('/cart', async ctx => await ctx.render('cart'))
 
-router.post('/cart,', koaBody, async ctx => {
+router.post('/cart,' , koaBody, async ctx => {
 	try{
 		const body = ctx.request.body
 		console.log(body)
 		const cart = await new Cart(dbCart)
 		await cart.addtoCart(body.name, body.price)
+		ctx.redirect('/cart')
+		//const sql = 'SELECT name, price FROM cart;'
+		//const db = await sqlite.open(dbCart)
+		//const data = await db.all(sql)
+		//await db.close()
+		//console.log(data)
+		//await ctx.render('cart', {title: 'Items in cart', name: data, price: data})
+
 	}catch (err) {
 		await ctx.render('error', {message: err.message})
 	}

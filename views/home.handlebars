@@ -34,7 +34,11 @@
                     <p class="card-text">{{this.desc}}</p>
                     <p class="cart-text">Price: {{this.price}}</p>
                     <a href="#" class="btn btn-dark">See Product</a>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                    <form action="/cart" method="post">
+                    <input type="hidden" name="name" value="Quantity" autofocus>
+                    <input type="hidden" name="price" value="">
+                    <button class="btn btn-primary" type="submit">Add to Cart</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -48,3 +52,7 @@
     </body>
 
 </html>
+
+
+
+
