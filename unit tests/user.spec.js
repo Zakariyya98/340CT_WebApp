@@ -18,8 +18,8 @@ describe('register()', () => {
 	test('register a duplicate username', async done => {
 		expect.assertions(1)
 		const account = await new Accounts()
-		await account.register('doej', 'password', '1 Gosford Street' , 'Coventry', 'England', 'CV1 1SA')
-		await expect( account.register('doej', 'password') )
+		await account.register('doej', 'password', 'null' , 'null', 'null', 'null')
+		await expect( account.register('doej', 'password' , 'null', 'null', 'null' ,'null') )
 			.rejects.toEqual( Error('username "doej" already in use') )
 		done()
 	})
