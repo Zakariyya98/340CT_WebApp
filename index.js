@@ -203,5 +203,20 @@ router.post('/cartdel' , async ctx => {
 	}
 })
 
+router.get('/viewproduct/:id', async ctx => {
+	try{
+		console.log(ctx.params.id)
+		const sql = `SELECT * FROM products WHERE id = ${ctx.params.id};`
+		const db = await sqlite.open(dbProducts)
+		const data = await db.get(sql)
+		await db.close()
+		console.log(data)
+		await ctx.render('viewproduct', data)
+
+	}catch(err) {
+		ctx.body = err.message
+	}
+})
+
 app.use(router.routes())
 module.exports = app.listen(port, async() => console.log(`listening on port ${port}`))
