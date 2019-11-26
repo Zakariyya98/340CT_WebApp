@@ -10,6 +10,7 @@ describe('register()', () => {
 	test('register a valid account', async done => {
 		expect.assertions(1)
 		const account = await new Accounts()
+		// eslint-disable-next-line max-len
 		const register = await account.register('doej', 'password', '1 Gosford Street' , 'Coventry', 'England', 'CV1 1SA')
 		expect(register).toBe(true)
 		done()
@@ -113,7 +114,7 @@ describe('Adding to a Database',() => {
 	//done()
 
 	//})
-	
+
 	test('error if no description', async done => {
 		expect.assertions(1)
 		const Product = await new Products()
@@ -131,7 +132,7 @@ describe('Adding to the shopping cart', () => {
 	test('Item added to database', async done => {
 		expect.assertions(1)
 		const cart = await new Cart()
-		await expect(cart.addtoCart('Dell XPS,', '£300'))
+		await expect(cart.addtoCart('Quantity', ''))
 			.rejects.toEqual(Error('Item not added to cart'))
 		done()
 	})
@@ -147,7 +148,7 @@ describe('Supplying Delivery Address', () => {
 			.rejects.toEqual( Error('Missing Address Line 1'))
 		done()
 	})
-	
+
 
 	test('City not supplied', async done => {
 		expect.assertions(1)
