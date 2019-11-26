@@ -6,7 +6,7 @@ module.exports = class Cart {
 	constructor(dbCart = ':memory:') {
 		return (async() => {
 			this.db = await sqlite.open(dbCart)
-			const sql = 'CREATE TABLE IF NOT EXISTS cart (id INTEGER PRIMARY KEY AUTOICREMENT, name TEXT, price TEXT);'
+			const sql = 'CREATE TABLE IF NOT EXISTS cart (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, price TEXT);'
 			await this.db.run(sql)
 			return this
 		})()
@@ -23,6 +23,4 @@ module.exports = class Cart {
 			throw err
 		}
 	}
-
-
 }

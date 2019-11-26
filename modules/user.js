@@ -14,6 +14,7 @@ module.exports = class User {
 		return (async() => {
 			this.db = await sqlite.open(dbName)
 			// we need this table to store the user accounts
+			// eslint-disable-next-line max-len
 			const sql = 'CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, user TEXT, pass TEXT, line1 TEXT, city TEXT, country TEXT, postcode TEXT);'
 			await this.db.run(sql)
 			return this
@@ -33,6 +34,7 @@ module.exports = class User {
 			const data = await this.db.get(sql)
 			if(data.records !== 0) throw new Error(`username "${user}" already in use`)
 			pass = await bcrypt.hash(pass, saltRounds)
+			// eslint-disable-next-line max-len
 			sql = `INSERT INTO users(user, pass, line1, city, country, postcode) VALUES("${user}", "${pass}", "${line1}", "${city}", "${country}", "${postcode}")`
 			await this.db.run(sql)
 			return true
