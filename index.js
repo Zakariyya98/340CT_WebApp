@@ -190,5 +190,18 @@ router.post('/cart' , async ctx => {
 	}
 })
 
+router.post('/cartdel' , async ctx => {
+	try{
+		const body = ctx.request.body
+		console.log(body)
+		const DelCart = await new Cart(dbCart)
+		await DelCart.removefromCart(body.id)
+		ctx.redirect('/cart')
+
+	}catch (err) {
+		await ctx.render('error', {message: err.message})
+	}
+})
+
 app.use(router.routes())
 module.exports = app.listen(port, async() => console.log(`listening on port ${port}`))

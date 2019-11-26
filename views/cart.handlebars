@@ -28,6 +28,11 @@
                     <h5 class="card-title">
                     {{this.name}}</h5>
                     <p class="cart-text">Price: {{this.price}}</p>
+                    
+                    <form action="/cartdel" method="post">
+                    <input type="hidden" name="id" value ="{{this.id}}">
+                    <button class="btn btn-danger" type="submit">Remove From Cart</button>
+                    </form>
                 </div>
             </div>
         </div>

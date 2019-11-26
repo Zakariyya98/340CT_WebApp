@@ -23,4 +23,16 @@ module.exports = class Cart {
 			throw err
 		}
 	}
+
+
+	async removefromCart(id) {
+		try{
+			let sql = `SELECT COUNT(id) as records FROM cart WHERE id="${id}"`
+			sql = `DELETE FROM cart WHERE id ="${id}"`
+			await this.db.run(sql)
+			return true
+		}catch (err) {
+			throw err
+		}
+	}
 }
