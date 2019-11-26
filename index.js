@@ -163,6 +163,20 @@ router.post('/productadd', koaBody, async ctx => {
 	}
 })
 
+router.get('/cart', async ctx => {
+	try {
+		console.log('/')
+		const sql = 'SELECT id, name, price FROM cart;'
+		const db = await sqlite.open(dbCart)
+		const data = await db.all(sql)
+		await db.close()
+		console.log(data)
+		await ctx.render('cart', {title: 'Items in your cart', name: data, price: data})
+	} catch(err) {
+		ctx.body = err.message
+	}
+})
+
 router.post('/cart' , async ctx => {
 	try{
 		const body = ctx.request.body

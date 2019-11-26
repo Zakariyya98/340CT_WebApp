@@ -16,7 +16,24 @@
             <a class = "active" href = "#Checkout">Cart</a>
         </div>
         <h1>This is your shopping cart</h1>
-           
+         <header>
+            <h1>{{title}}</h1>
+        </header>
+          <div class="row">
+                {{#each name}}
+                <div class ="col-sm-4 col-md-2">
+                <div class ="card" style="width: 18rem;">
+                    <img class="card-img-top" src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp13touch-silver-select-201807?wid=892&hei=820&&qlt=80&.v=1529520056377" alt="Card image cap">
+                    <div class="card-body">
+                    <h5 class="card-title">
+                    {{this.name}}</h5>
+                    <p class="cart-text">Price: {{this.price}}</p>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        </div>
+
 
 
 
