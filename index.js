@@ -1,11 +1,12 @@
 #!/usr/bin/env node
+// eslint-disable-next-line max-lines
 /* eslint-disable max-lines-per-function */
 //Routes File
 
 'use strict'
 
 /* MODULE IMPORTS */
-const Koa = require('koa');
+const Koa = require('koa')
 const Router = require('koa-router')
 const views = require('koa-views')
 const staticDir = require('koa-static')
@@ -33,7 +34,7 @@ app.use(session(app))
 app.use(views(`${__dirname}/views`, { extension: 'handlebars' }, {map: { handlebars: 'handlebars' }}))
 
 const defaultPort = 8080
-const port = process.env.PORT || defaultPort 
+const port = process.env.PORT || defaultPort
 //Databases
 const dbName = 'website.db'
 const dbProducts = 'products.db'
@@ -161,27 +162,46 @@ router.post('/productadd', koaBody, async ctx => {
 		await ctx.render('error', {message: err.message})
 	}
 })
-router.get('/cart', async ctx => await ctx.render('cart'))
 
-router.post('/cart,' , koaBody, async ctx => {
+router.get('/cart', async ctx => {
+	try {
+		console.log('/')
+		const sql = 'SELECT id, name, price FROM cart;'
+		const db = await sqlite.open(dbCart)
+		const data = await db.all(sql)
+		await db.close()
+		console.log(data)
+		await ctx.render('cart', {title: 'Items in your cart', name: data, price: data})
+	} catch(err) {
+		ctx.body = err.message
+	}
+})
+
+router.post('/cart' , async ctx => {
 	try{
 		const body = ctx.request.body
 		console.log(body)
 		const cart = await new Cart(dbCart)
 		await cart.addtoCart(body.name, body.price)
 		ctx.redirect('/cart')
-		//const sql = 'SELECT name, price FROM cart;'
-		//const db = await sqlite.open(dbCart)
-		//const data = await db.all(sql)
-		//await db.close()
-		//console.log(data)
-		//await ctx.render('cart', {title: 'Items in cart', name: data, price: data})
 
 	}catch (err) {
 		await ctx.render('error', {message: err.message})
 	}
 })
 
+router.post('/cartdel' , async ctx => {
+	try{
+		const body = ctx.request.body
+		console.log(body)
+		const DelCart = await new Cart(dbCart)
+		await DelCart.removefromCart(body.id)
+		ctx.redirect('/cart')
+
+	}catch (err) {
+		await ctx.render('error', {message: err.message})
+	}
+})
 
 app.use(router.routes())
 module.exports = app.listen(port, async() => console.log(`listening on port ${port}`))
