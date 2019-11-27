@@ -33,7 +33,11 @@
                     {{this.name}}</h5>
                     <p class="card-text">{{this.desc}}</p>
                     <p class="cart-text">Price: {{this.price}}</p>
-                    <a href="#" class="btn btn-dark">See Product</a>
+                    
+                    <form action ="/viewproduct/{{id}}" method="GET">
+                    <button class="btn btn-dark" type="submit">See Product</a>
+                    </form>
+                    
                     <form action="/cart" method="post">
                     <input type="hidden" name="name" value="{{name}}" autofocus>
                     <input type="hidden" name="price" value="{{price}}">
