@@ -24,11 +24,11 @@ module.exports = class Systems {
 		try{
 			if(name.length === 0) throw new Error('Missing Product Name')
 			if(price.length === 0) throw new Error('Missing Product Price')
-			if(picture.length === 0) throw new Error('Missing Product Image')
+			//if(picture.length === 0) throw new Error('Missing Product Image')
 			if(desc.length === 0) throw new Error('Missing Product Description')
 			let sql = `SELECT COUNT(id) as records FROM products WHERE name="${name}"`
 			// eslint-disable-next-line max-len
-			sql = `INSERT INTO products(name, price, picture, desc) VALUES("${name}", "${price}","${picture}","${desc}")`
+			sql = `INSERT INTO products(name, price, picture, desc) VALUES("${name}", "${price}","avatars/${picture}","${desc}")`
 			await this.db.run(sql)
 			return true
 
@@ -37,6 +37,11 @@ module.exports = class Systems {
 		}
 
 	}
+
+	async uploadpicture(path, name) {
+		await fs.copy(path, `public/avatars/${name}`)
+	}
+
 
 	//async updatedb(name, price, picture, desc){
 		//try{

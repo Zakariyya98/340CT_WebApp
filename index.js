@@ -149,13 +149,13 @@ router.post('/productadd', koaBody, async ctx => {
 		const fileExtention = mime.extension(type)
 		console.log(`path: ${path}`)
 		console.log(`Filetype: ${type}`)
-		console.log(`Filename: ${name}`)
 		console.log(`fileExtention: ${fileExtention}`)
-		await fs.copy(path, `public/avatars/${name}`)
+		
 		//add picture code ends
 		//Working Code
 		const system = await new Systems(dbProducts)
-		await system.addtodb(body.name, body.price, body.picture, body.desc)
+		await system.addtodb(body.name, body.price, name, body.desc)
+		await system.uploadpicture(path, name)
 		// redirect to the home page
 		ctx.redirect('/home')
 	} catch(err) {
@@ -202,7 +202,7 @@ router.post('/cartdel' , async ctx => {
 		await ctx.render('error', {message: err.message})
 	}
 })
-
+router.get('/viewproduct', async ctx => await ctx.render('viewproduct'))
 router.get('/viewproduct/:id', async ctx => {
 	try{
 		console.log(ctx.params.id)
@@ -212,7 +212,6 @@ router.get('/viewproduct/:id', async ctx => {
 		await db.close()
 		console.log(data)
 		await ctx.render('viewproduct', data)
-
 	}catch(err) {
 		ctx.body = err.message
 	}

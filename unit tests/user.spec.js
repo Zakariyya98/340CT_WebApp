@@ -1,6 +1,9 @@
 
 'use strict'
 
+const mock = require('mock-fs')
+const fs = require('fs')
+
 const Accounts = require('../modules/user.js')
 const Products = require('../modules/computers.js')
 const Cart = require('../modules/shoppingcart.js')
@@ -44,6 +47,27 @@ describe('register()', () => {
 })
 
 describe('uploadPicture()', () => {
+	afterEach(() => {
+		mock.restore()
+	})
+
+	test('upload picture', async done => {
+		expect.assertions(1)
+		mock({
+			'DELLXPS.png': Buffer.from([1,6,7,3]),
+			'public/avatars/': {}
+
+		})
+
+		const system = await new Products()
+		await system.uploadpicture('DELLXPS.png', 'Dell.png')
+		let result = false
+		if(await fs.existsSync('public/avatars/Dell.png')) {
+			result = true
+		}
+		expect(result).toBe(true)
+		done()
+	})
 	// this would have to be done by mocking the file system
 	// perhaps using mock-fs?
 })
