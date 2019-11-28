@@ -11,7 +11,7 @@ module.exports = class Systems {
 		return (async() => {
 			this.db = await sqlite.open(dbProducts)
 			// eslint-disable-next-line max-len
-			const sql = 'CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, price TEXT, picture TEXT, desc TEXT);'
+			const sql = 'CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, price TEXT, picture TEXT, desc TEXT, op1 TEXT, op2 TEXT, op3 TEXT, op1tot TEXT, op2tot TEXT, op3tot TEXT);'
 			await this.db.run(sql)
 			return this
 		})()
@@ -20,7 +20,8 @@ module.exports = class Systems {
 	}
 	// eslint-disable-next-line complexity
 	// eslint-disable-next-line max-lines-per-function
-	async addtodb(name, price, picture, desc) {
+	// eslint-disable-next-line max-params
+	async addtodb(name, price, picture, desc, op1, op2, op3, op1tot, op2tot, op3tot) {
 		try{
 			if(name.length === 0) throw new Error('Missing Product Name')
 			if(price.length === 0) throw new Error('Missing Product Price')
@@ -28,7 +29,8 @@ module.exports = class Systems {
 			if(desc.length === 0) throw new Error('Missing Product Description')
 			let sql = `SELECT COUNT(id) as records FROM products WHERE name="${name}"`
 			// eslint-disable-next-line max-len
-			sql = `INSERT INTO products(name, price, picture, desc) VALUES("${name}", "${price}","avatars/${picture}","${desc}")`
+			sql = `INSERT INTO products(name, price, picture, desc, op1, op2, op3, op1tot, op2tot, op3tot) 
+				   VALUES("${name}", "${price}","avatars/${picture}","${desc}", "${op1}","${op2}","${op3}","${op1tot}","${op2tot}","${op3tot}")`
 			await this.db.run(sql)
 			return true
 

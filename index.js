@@ -150,11 +150,10 @@ router.post('/productadd', koaBody, async ctx => {
 		console.log(`path: ${path}`)
 		console.log(`Filetype: ${type}`)
 		console.log(`fileExtention: ${fileExtention}`)
-		
 		//add picture code ends
 		//Working Code
 		const system = await new Systems(dbProducts)
-		await system.addtodb(body.name, body.price, name, body.desc)
+		await system.addtodb(body.name, body.price, name, body.desc, body.op1, body.op2, body.op3, body.op1tot, body.op2tot, body.op3tot)
 		await system.uploadpicture(path, name)
 		// redirect to the home page
 		ctx.redirect('/home')
