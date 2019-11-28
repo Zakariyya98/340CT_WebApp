@@ -42,10 +42,12 @@ module.exports = class Systems {
 
 	async uploadpicture(path, name) {
 		await fs.copy(path, `public/avatars/${name}`)
-		//await fs.copy(path, `public/avatars/${picture2}`)
 	}
 
-
+	async uploadpicture2(path2, name2) {
+		await fs.copy(path2, `public/avatars/${name2}`)
+	}
+		
 	//async updatedb(name, price, picture, desc){
 		//try{
 			//if

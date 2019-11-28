@@ -138,23 +138,38 @@ router.get('/home', async ctx => {
 
 router.get('/productadd', async ctx => await ctx.render('productadd'))
 
+// eslint-disable-next-line max-statements
 router.post('/productadd', koaBody, async ctx => {
 	try {
 		// extract the data from the request
-		const body = ctx.request.body
+		const body = await ctx.request.body
 		console.log(body)
 		// call the functions in the module
 		//Add Picture Code
-		const {path, type, name, picture2} = ctx.request.files.picture
+		const files = await ctx.request.files
+		const picture = files.picture
+		const picture2 = files.picture2
+
+		const path = picture.path
+		const type = picture.type
+		const name = picture.name
+
+		const path2 = picture2.path
+		//const type2 = picture2.type
+		const name2 = picture2.name
+
 		const fileExtention = mime.extension(type)
 		console.log(`path: ${path}`)
 		console.log(`Filetype: ${type}`)
 		console.log(`fileExtention: ${fileExtention}`)
+		console.log(`Picture 1: ${name}`)
+		console.log(`Picture 2: ${name2}`)
 		//add picture code ends
 		//Working Code
 		const system = await new Systems(dbProducts)
-		await system.addtodb(body.name, body.price, name, body.desc, body.op1, body.op2, body.op3, body.op1tot, body.op2tot, body.op3tot, picture2)
-		await system.uploadpicture(path, name, picture2)
+		await system.addtodb(body.name, body.price, name, body.desc, body.op1, body.op2, body.op3, body.op1tot, body.op2tot, body.op3tot, name2)
+		await system.uploadpicture(path, name)
+		await system.uploadpicture2(path2, name2)
 		// redirect to the home page
 		ctx.redirect('/home')
 	} catch(err) {

@@ -67,6 +67,7 @@ describe('uploadPicture()', () => {
 		}
 		expect(result).toBe(true)
 		done()
+
 	})
 	// this would have to be done by mocking the file system
 	// perhaps using mock-fs?
