@@ -145,7 +145,7 @@ router.post('/productadd', koaBody, async ctx => {
 		console.log(body)
 		// call the functions in the module
 		//Add Picture Code
-		const {path, type, name} = ctx.request.files.picture
+		const {path, type, name, picture2} = ctx.request.files.picture
 		const fileExtention = mime.extension(type)
 		console.log(`path: ${path}`)
 		console.log(`Filetype: ${type}`)
@@ -153,8 +153,8 @@ router.post('/productadd', koaBody, async ctx => {
 		//add picture code ends
 		//Working Code
 		const system = await new Systems(dbProducts)
-		await system.addtodb(body.name, body.price, name, body.desc, body.op1, body.op2, body.op3, body.op1tot, body.op2tot, body.op3tot)
-		await system.uploadpicture(path, name)
+		await system.addtodb(body.name, body.price, name, body.desc, body.op1, body.op2, body.op3, body.op1tot, body.op2tot, body.op3tot, picture2)
+		await system.uploadpicture(path, name, picture2)
 		// redirect to the home page
 		ctx.redirect('/home')
 	} catch(err) {
