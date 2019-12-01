@@ -138,24 +138,38 @@ router.get('/home', async ctx => {
 
 router.get('/productadd', async ctx => await ctx.render('productadd'))
 
+// eslint-disable-next-line max-statements
 router.post('/productadd', koaBody, async ctx => {
 	try {
 		// extract the data from the request
-		const body = ctx.request.body
+		const body = await ctx.request.body
 		console.log(body)
 		// call the functions in the module
 		//Add Picture Code
-		const {path, type, name} = ctx.request.files.picture
+		const files = await ctx.request.files
+		const picture = files.picture
+		const picture2 = files.picture2
+
+		const path = picture.path
+		const type = picture.type
+		const name = picture.name
+
+		const path2 = picture2.path
+		//const type2 = picture2.type
+		const name2 = picture2.name
+
 		const fileExtention = mime.extension(type)
 		console.log(`path: ${path}`)
 		console.log(`Filetype: ${type}`)
-		console.log(`Filename: ${name}`)
 		console.log(`fileExtention: ${fileExtention}`)
-		await fs.copy(path, `public/avatars/${name}`)
+		console.log(`Picture 1: ${name}`)
+		console.log(`Picture 2: ${name2}`)
 		//add picture code ends
 		//Working Code
 		const system = await new Systems(dbProducts)
-		await system.addtodb(body.name, body.price, body.picture, body.desc)
+		await system.addtodb(body.name, body.price, name, body.desc, body.op1, body.op2, body.op3, body.op1tot, body.op2tot, body.op3tot, name2)
+		await system.uploadpicture(path, name)
+		await system.uploadpicture2(path2, name2)
 		// redirect to the home page
 		ctx.redirect('/home')
 	} catch(err) {
@@ -166,12 +180,12 @@ router.post('/productadd', koaBody, async ctx => {
 router.get('/cart', async ctx => {
 	try {
 		console.log('/')
-		const sql = 'SELECT id, name, price FROM cart;'
+		const sql = 'SELECT id, name, price, op1, op2, op3, op1tot, op2tot, op3tot, picture FROM cart;'
 		const db = await sqlite.open(dbCart)
 		const data = await db.all(sql)
 		await db.close()
 		console.log(data)
-		await ctx.render('cart', {title: 'Items in your cart', name: data, price: data})
+		await ctx.render('cart', {title: 'Items in your cart', name: data, price: data, op1: data, op1tot: data, picture: data})
 	} catch(err) {
 		ctx.body = err.message
 	}
@@ -182,7 +196,8 @@ router.post('/cart' , async ctx => {
 		const body = ctx.request.body
 		console.log(body)
 		const cart = await new Cart(dbCart)
-		await cart.addtoCart(body.name, body.price)
+		// eslint-disable-next-line max-len
+		await cart.addtoCart(body.name, body.price, body.op1, body.op1tot, body.op2, body.op2tot, body.op3, body.op3tot, body.picture)
 		ctx.redirect('/cart')
 
 	}catch (err) {
@@ -202,6 +217,21 @@ router.post('/cartdel' , async ctx => {
 		await ctx.render('error', {message: err.message})
 	}
 })
+router.get('/viewproduct', async ctx => await ctx.render('viewproduct'))
+router.get('/viewproduct/:id', async ctx => {
+	try{
+		console.log(ctx.params.id)
+		const sql = `SELECT * FROM products WHERE id = ${ctx.params.id};`
+		const db = await sqlite.open(dbProducts)
+		const data = await db.get(sql)
+		await db.close()
+		console.log(data)
+		await ctx.render('viewproduct', data)
+	}catch(err) {
+		ctx.body = err.message
+	}
+})
+
 
 app.use(router.routes())
 module.exports = app.listen(port, async() => console.log(`listening on port ${port}`))

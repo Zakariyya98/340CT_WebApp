@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{{name}}</title>
+        <link href= "style.css" type="text/css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        
+    </head>
+
+    <body>
+
+        <div class ="navigation-bar">
+            <a class = "active" href = "#Home">Home</a>
+            <a href = "#Browse">Browse</a>
+            <a href = "#Contact">Contact</a>
+            <a href = "/login">Log In</a>
+            <a href = "/logout">Log Out</a>
+            <a href = "/cart">Cart</a>
+        </div>
+        <header>
+            <h1>{{name}}</h1>
+        </header>
+            
+        <p>Description: {{desc}}</p>
+        <p>Price: {{price}}</p>
+        <p>Customise your {{name}}
+            <ul>
+            <li>
+                
+                {{op1}}, {{op1tot}}
+                {{op2}}, {{op2tot}}
+                {{op3}}, {{op3tot}}
+
+                
+                
+            </li>
+            </ul>
+
+            <form action="/cart" method="post">
+                    <input type="hidden" name="name" value="{{name}}" autofocus>
+                    <input type="hidden" name="price" value="{{price}}">
+                    
+                    <input type="checkbox" name="op1" value="{{op1}}"> {{op1}} - {{op1tot}} <br>
+                    <input type="hidden" name="op1tot" value="{{op1tot}}">
+
+                    <input type="checkbox" name="op2" value="{{op2}}"> {{op2}} - {{op2tot}}<br>
+                    <input type="hidden" name="op2tot" value="{{op2tot}}">
+
+                    <input type="checkbox" name="op3" value="{{op3}}"> {{op3}} - {{op3tot}}<br>
+                    <input type="hidden" name="op3tot" value="{{op3tot}}">
+
+                    <input type="hidden" name="picture" value="{{picture}}">
+                   
+                    <button class="btn btn-primary" type="submit">Add to Cart</button>
+                    </form>
+
+        
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>  
+   
+    </body>
+</html>
