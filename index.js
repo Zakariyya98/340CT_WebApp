@@ -180,12 +180,12 @@ router.post('/productadd', koaBody, async ctx => {
 router.get('/cart', async ctx => {
 	try {
 		console.log('/')
-		const sql = 'SELECT id, name, price FROM cart;'
+		const sql = 'SELECT id, name, price, op1, op2, op3, op1tot, op2tot, op3tot, picture FROM cart;'
 		const db = await sqlite.open(dbCart)
 		const data = await db.all(sql)
 		await db.close()
 		console.log(data)
-		await ctx.render('cart', {title: 'Items in your cart', name: data, price: data})
+		await ctx.render('cart', {title: 'Items in your cart', name: data, price: data, op1: data, op1tot: data, picture: data})
 	} catch(err) {
 		ctx.body = err.message
 	}
@@ -196,7 +196,8 @@ router.post('/cart' , async ctx => {
 		const body = ctx.request.body
 		console.log(body)
 		const cart = await new Cart(dbCart)
-		await cart.addtoCart(body.name, body.price)
+		// eslint-disable-next-line max-len
+		await cart.addtoCart(body.name, body.price, body.op1, body.op1tot, body.op2, body.op2tot, body.op3, body.op3tot, body.picture)
 		ctx.redirect('/cart')
 
 	}catch (err) {

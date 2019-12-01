@@ -27,7 +27,7 @@
         </header>
             <div class="row">
                 {{#each name}}
-                <div class ="col-sm-4 col-md-2">
+                <div class ="col-sm-3">
                 <div class ="card" style="width: 18rem;">
                     <img class="card-img-top" src="{{this.picture}}" alt="Card image cap">
                     <div class="card-body">
@@ -38,12 +38,6 @@
                     
                     <form action ="/viewproduct/{{id}}" method="GET">
                     <button class="btn btn-dark" type="submit">See Product</a>
-                    </form>
-                    
-                    <form action="/cart" method="post">
-                    <input type="hidden" name="name" value="{{name}}" autofocus>
-                    <input type="hidden" name="price" value="{{price}}">
-                    <button class="btn btn-primary" type="submit">Add to Cart</button>
                     </form>
                 </div>
             </div>
