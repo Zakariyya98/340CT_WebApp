@@ -196,7 +196,7 @@ router.post('/cart' , async ctx => {
 		const body = ctx.request.body
 		console.log(body)
 		const cart = await new Cart(dbCart)
-		await cart.addtoCart(body.name, body.price)
+		await cart.addtoCart(body.name, body.price, body.op1, body.op1tot, body.op2, body.op2tot, body.op3, body.op3tot)
 		ctx.redirect('/cart')
 
 	}catch (err) {
