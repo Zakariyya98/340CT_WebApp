@@ -39,9 +39,17 @@
             <form action="/cart" method="post">
                     <input type="hidden" name="name" value="{{name}}" autofocus>
                     <input type="hidden" name="price" value="{{price}}">
+                    
                     <input type="checkbox" name="op1" value="{{op1}}"> {{op1}} - {{op1tot}} <br>
+                    <input type="hidden" name="op1tot" value="{{op1tot}}">
+
                     <input type="checkbox" name="op2" value="{{op2}}"> {{op2}} - {{op2tot}}<br>
+                    <input type="hidden" name="op2tot" value="{{op2tot}}">
+
                     <input type="checkbox" name="op3" value="{{op3}}"> {{op3}} - {{op3tot}}<br>
+                    <input type="hidden" name="op3tot" value="{{op3tot}}">
+
+                    <input type="hidden" name="picture" value="{{picture}}">
                    
                     <button class="btn btn-primary" type="submit">Add to Cart</button>
                     </form>

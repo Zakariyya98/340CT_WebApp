@@ -21,16 +21,15 @@
         </header>
           <div class="row">
                 {{#each name}}
-                <div class ="col-sm-4 col-md-2">
+                <div class ="col-sm-3">
                 <div class ="card" style="width: 18rem;">
-                    <img class="card-img-top" src="https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp13touch-silver-select-201807?wid=892&hei=820&&qlt=80&.v=1529520056377" alt="Card image cap">
+                    <img class="card-img-top" src="{{this.picture}}" alt="Card image cap">
                     <div class="card-body">
                     <h5 class="card-title">
                     {{this.name}}</h5>
-                    <p class= "cart-text">Custom Options: {{this.op1}}</p>
-                    <p class="cart-text">Price: {{this.price}}</p>
-
-                    
+                    <p class= "cart-text">Custom Options: {{this.op1}}, {{this.op2}}, {{this.op3}}</p>
+                    <p class="cart-text">Option Prices: Option 1:{{op1tot}} Option 2:{{op2tot}}, Option 3:{{op3tot}}</p>
+                    <p class="cart-text">Price: {{this.price}}+{{op1tot}}+{{op2tot}}+{{op3tot}}</p>
                     <form action="/cartdel" method="post">
                     <input type="hidden" name="id" value ="{{this.id}}">
                     <button class="btn btn-danger" type="submit">Remove From Cart</button>
