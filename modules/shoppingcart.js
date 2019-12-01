@@ -12,10 +12,12 @@ module.exports = class Cart {
 		})()
 	}
 
-	async addtoCart(name, price) {
+	// eslint-disable-next-line max-params
+	async addtoCart(name, price, op1, op2, op3, op1tot, op2tot, op3tot) {
 		try{
 			let sql = `SELECT COUNT(id) as records FROM cart WHERE name="${name}"`
-			sql = `INSERT INTO cart(name, price) VALUES("${name}", "${price}")`
+			// eslint-disable-next-line max-len
+			sql = `INSERT INTO cart(name, price) VALUES("${name}", "${price}", "${op1}","${op1tot}","${op2}","${op2tot}","${op3}","${op3tot}")`
 			await this.db.run(sql)
 			return true
 
