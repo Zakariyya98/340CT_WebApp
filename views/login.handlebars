@@ -12,7 +12,6 @@
 	<body>
 
 		 {{! - The Updated Login Page}}
-		<form action= "/login" method="post">
 		<div class="login-background">
 			<div class="login-design">
 				<div class ="login-design2">
@@ -21,7 +20,7 @@
 							Authorised Computer Reseller
 						</span>
 
-				
+				        <form action= "/login" method="post">
 						<div class="userpass-input validate-input" data-validate = "Username is required: JohnDoe">
 						<input class="userpass-enter" type="text" name="user" placeholder="Username" value ="{{user}}" autofocus>
 						<span class="userpass-design"></span>
@@ -49,10 +48,12 @@
 
 						<div class="signup-button-design">
 						<p>Dont have an account?</p>
-						<button class="signup-button">
+						<form action="/register" method="GET">
+						<button class="signup-button" type="submit">
 							Sign up
 						</button>
 						</form>
+					
 					</div>
 
 					<div class="browse-site-design">

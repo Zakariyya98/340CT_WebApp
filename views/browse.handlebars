@@ -11,15 +11,11 @@
     <body>
 
         <div class ="navigation-bar">
-            <a class = "active" href = "#Home">Home</a>
-            <a href = "/login">Log In</a>
-            <a href = "/logout">Log Out</a>
-            <a href = "/cart">Cart</a>
+            <a class = "active" href = "#Browse">Browse</a>
+            <a href = "/login">Log in</a>
         </div>
 
-        <h1>Computer Reseller</h1>
-        <h2>The Systems below are the most popular systems right now. </h2>
-
+        <h1>Computer Reseller - You are not logged in</h1>
         <header>
             <h1>{{title}}</h1>
         </header>
@@ -33,10 +29,6 @@
                     {{this.name}}</h5>
                     <p class="card-text">{{this.desc}}</p>
                     <p class="cart-text">Price: {{this.price}}</p>
-                    
-                    <form action ="/viewproduct/{{id}}" method="GET">
-                    <button class="btn btn-dark" type="submit">See Product</a>
-                    </form>
                 </div>
             </div>
         </div>
