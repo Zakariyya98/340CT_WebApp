@@ -12,6 +12,7 @@
 	<body>
 
 		 {{! - The Updated Login Page}}
+	    <form action= "/login" method="post">
 		<div class="login-background">
 			<div class="login-design">
 				<div class ="login-design2">
@@ -20,7 +21,6 @@
 							Authorised Computer Reseller
 						</span>
 
-				        <form action= "/login" method="post">
 						<div class="userpass-input validate-input" data-validate = "Username is required: JohnDoe">
 						<input class="userpass-enter" type="text" name="user" placeholder="Username" value ="{{user}}" autofocus>
 						<span class="userpass-design"></span>
@@ -48,17 +48,16 @@
 
 						<div class="signup-button-design">
 						<p>Dont have an account?</p>
-						<form action="/register" method="GET">
-						<button class="signup-button" type="submit">
+						<h3>Dont have an account? <a href="/register">Sign Up</a></h3>
+						<button class="signup-button">
 							Sign up
 						</button>
-						</form>
-					
 					</div>
 
 					<div class="browse-site-design">
 						<p>Look around as a guest</p>
-						<button class="browse-site" value ="/home">
+						<h3>Take a look? <a href="/browse">Take a look</a></h3>
+						<button class="browse-site" value ="/browse">
 							Take a look?
 						</button>
 					</div>
@@ -68,14 +67,6 @@
 			</div>
 		
 		</div>
-
-	{{! - Add back the double curly
-		#if msg
- 			<p class="msg">msg</p>
-		/if}}
-	
-		{{!<h3>Dont have an account? <a href="/register">Sign Up</a></h3>
-		<h3>Want to have a look around? <a href="/home">Take a look</a></h3>}}
 		
 	</body>
 </html>
