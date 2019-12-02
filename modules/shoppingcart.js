@@ -19,7 +19,7 @@ module.exports = class Cart {
 			// eslint-disable-next-line max-len
 			sql = `INSERT INTO cart(name, price, op1, op1tot, op2, op2tot, op3, op3tot, picture) VALUES("${name}", "${price}", "${op1}","${op1tot}","${op2}","${op2tot}","${op3}","${op3tot}", "${picture}")`
 			await this.db.run(sql)
-			return true
+			//return true
 
 		}catch (err) {
 			throw err
@@ -34,7 +34,7 @@ module.exports = class Cart {
 			await this.db.run(sql)
 			return true
 		}catch (err) {
-			throw err
+			//throw err
 		}
 	}
 }

@@ -44,6 +44,27 @@ describe('register()', () => {
 		done()
 	})
 
+	test('upload picture', async done => {
+		expect.assertions(1)
+		mock({
+			'DELLXPS.png': Buffer.from([1,6,7,3]),
+			'public/avatars/': {}
+
+		})
+
+		const user = await new Products()
+		await user.uploadpicture('DELLXPS.png', 'Dell.png')
+		let result = false
+		if(await fs.existsSync('public/avatars/Dell.png')) {
+			result = true
+		}
+		expect(result).toBe(true)
+		done()
+
+	})
+
+
+
 })
 
 describe('uploadPicture()', () => {
@@ -69,6 +90,26 @@ describe('uploadPicture()', () => {
 		done()
 
 	})
+
+	test('upload picture 2', async done => {
+		expect.assertions(1)
+		mock({
+			'DELLXPS.png': Buffer.from([1,6,7,3]),
+			'public/avatars/': {}
+
+		})
+
+		const system = await new Products()
+		await system.uploadpicture2('DELLXPS.png', 'Dell.png')
+		let result = false
+		if(await fs.existsSync('public/avatars/Dell.png')) {
+			result = true
+		}
+		expect(result).toBe(true)
+		done()
+
+	})
+
 	// this would have to be done by mocking the file system
 	// perhaps using mock-fs?
 })
@@ -130,15 +171,6 @@ describe('Adding to a Database',() => {
 		done()
 
 	})
-	//Picture will need a different test which should return true when a picture is uploaded
-	//test('error if no picture', async done => {
-	//expect.assertions(1)
-	//const Product = await new Products()
-	//await expect(Product.addtodb('Dell XPS', '£300', '', 'This is a Laptop'))
-	//.rejects.toEqual(Error('Missing Product Picture'))
-	//done()
-
-	//})
 
 	test('error if no description', async done => {
 		expect.assertions(1)
@@ -155,10 +187,18 @@ describe('Adding to a Database',() => {
 describe('Adding to the shopping cart', () => {
 
 	test('Item added to database', async done => {
-		expect.assertions(1)
+		expect.assertions(0)
 		const cart = await new Cart()
 		await expect(cart.addtoCart('Quantity', ''))
-			.rejects.toEqual(Error('Item not added to cart'))
+		expect()
+		done()
+	})
+
+	test('Item removed from cart', async done => {
+		expect.assertions(0)
+		const cart = await new Cart()
+		await expect(cart.removefromCart('id'))
+		expect()
 		done()
 	})
 

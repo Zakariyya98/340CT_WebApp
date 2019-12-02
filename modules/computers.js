@@ -47,32 +47,4 @@ module.exports = class Systems {
 	async uploadpicture2(path2, name2) {
 		await fs.copy(path2, `public/avatars/${name2}`)
 	}
-		
-	//async updatedb(name, price, picture, desc){
-		//try{
-			//if
-		//}catch (err){
-			//throw err
-		//}
-	//}
-
-
-//This is a search feature for the database.
-	//async search(userinp) {
-		//try{
-			//const sql = `SELECT name as name FROM products WHERE name="${userinp}";`
-			//const data = await this.db.get(sql)
-			//return data
-		//} catch(err) {
-			//throw err
-		//}
-	//}
 }
-
-// const dbProducts = new sqlite3.Database('products.db', err => {
-// 	if (err) return console.error(err.message)
-// 	// eslint-disable-next-line max-len
-// 	const sql = 'CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, price TEXT, picture TEXT, desc TEXT)'
-// 	console.log(sql)
-// 	dbProducts.run(sql)
-// })
