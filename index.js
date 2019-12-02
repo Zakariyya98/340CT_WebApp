@@ -231,7 +231,19 @@ router.get('/viewproduct/:id', async ctx => {
 		ctx.body = err.message
 	}
 })
-
+router.get('/browse', async ctx => {
+	try {
+		console.log('/')
+		const sql = 'SELECT id, name, desc, picture, price FROM products;'
+		const db = await sqlite.open(dbProducts)
+		const data = await db.all(sql)
+		await db.close()
+		console.log(data)
+		await ctx.render('browse', {title: 'System\'s avaliable right now', name: data, desc: data, price: data})
+	} catch(err) {
+		ctx.body = err.message
+	}
+})
 
 app.use(router.routes())
 module.exports = app.listen(port, async() => console.log(`listening on port ${port}`))
